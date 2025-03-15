@@ -1,0 +1,4 @@
+node_modules
+dataconnect
+dataconnect-generated
+.env

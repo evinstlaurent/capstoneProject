@@ -1,0 +1,20 @@
+extends masterLayout
+
+block content
+  p This is the generate page layout, which extends the master layout and with all things specific to the generate page but that also do not change
+  
+  main
+  // the recipe generator section
+  section#generator-form-section
+    form#generator-form(method='POST' action='/generate')
+      label(for='mealSelect')
+        strong Select a Meal:
+      select#mealSelect(name='mealSelect' maxlength='50' required='')
+        option(disabled selected value='') --Select Category--
+        option(value='Breakfast') Breakfast
+        option(value='Lunch') Lunch
+        option(value='Dinner') Dinner
+        option(value='Dessert') Dessert
+      button#generateButton(type='submit') Generate Recipe!
+
+  block div
