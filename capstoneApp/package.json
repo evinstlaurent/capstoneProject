@@ -8,12 +8,20 @@
     "serverstart": "DEBUG=capstoneApp:* npm run devstart"
   },
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "eslint": "^9.25.1",
     "express": "~4.16.1",
+    "firebase": "^11.6.1",
+    "firebase-admin": "^13.3.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "path": "^0.12.7",
     "pug": "2.0.0-beta11"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

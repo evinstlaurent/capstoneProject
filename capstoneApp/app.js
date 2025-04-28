@@ -22,6 +22,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+app.listen(3000, () => {
+  console.log("App running on http://localhost:3000");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

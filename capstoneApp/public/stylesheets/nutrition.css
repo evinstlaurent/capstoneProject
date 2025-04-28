@@ -1,0 +1,832 @@
+/* ====== Google Font Imports ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.poppins-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+}
+
+.roboto-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+}
+
+.roboto-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.roboto-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+  
+
+/* ====== Colors ====== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color:#62E98B;
+    --side-nav: #;
+    --text-color: #FFFFFF;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+}
+
+/* ====== All Global Styles ====== */
+
+body{
+    height: 100vh;
+    background-color: var(--body-color);
+
+}
+
+/* ====== Registration & Sign-In Forms ====== */
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.auth-box {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.auth-box h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-box label {
+    display: block;
+    text-align: left;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.auth-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.auth-box button:hover {
+    background-color: #4bc274;
+}
+
+/* ====== Navigation Bar ====== */
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 100%;
+    background-color: var(--nav-color);
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1200px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .logo a{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+
+}
+
+.nav-bar .nav-links li{
+    margin: 0 5px;
+    list-style: none;
+
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 10px; 
+}
+
+.nav-links li a.active {
+    font-weight: 700; 
+    border-bottom: 2px solid #FF8C00; 
+    padding-bottom: 12px; 
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #ffffff; 
+    color: #010718; 
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content, .profile-page {
+    display: none;
+}
+
+.tab-content.active, .profile-page.active {
+    display: block;
+}
+
+.content {
+    padding-top: 100px; 
+}
+
+/* ====== Profile Page ====== */
+.profile-page {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#profile-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#profile-icon {
+    font-size: 40px; 
+    cursor: pointer;
+}
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    min-width: 160px;
+    padding: 10px 0;
+}
+
+#profile-dropdown.show {
+    display: block;
+}
+
+#profile-dropdown button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#profile-dropdown button:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-page h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-page .diet-section,
+.profile-page .allergy-section {
+    margin-bottom: 20px;
+}
+
+.diet-options{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.diet-options label{
+    display: flex;
+    align-items: center;
+    width: auto;
+    gap: 5px;
+    padding: 8px;
+}
+
+.diet-options input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.allergy-section label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+    /* Custom Diet Input */
+.custom-diet {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.custom-diet input {
+    flex-grow: 1;
+    padding: 10px;
+    margin-left: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.custom-diet button {
+    align-items: right;
+    gap: 8px;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+.custom-diet button:hover {
+    background-color: #4bc274;
+}
+
+.custom-diet button i {
+    font-size: 20px; 
+    vertical-align: middle;
+    line-height: 1;
+}
+
+    /* Custom Diet Preferences List */
+#custom-diet-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #E4F7E9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100px;
+}
+
+#custom-diet-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.custom-diet-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E4F7E9;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+    /* Remove Custome Diet Button */
+.remove-diet-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    color: #62E98B;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 4px; 
+    font-size: 16px; 
+    width: 24px; 
+    height: 24px; 
+}
+
+.remove-diet-button i {
+    font-size: 20px;
+}
+
+.remove-diet-button:hover {
+    background-color: #4bc274;
+}
+
+#diet-submit-button {
+    display: block;
+    margin-left: auto;
+    margin-top: 10px;
+    align-items: center;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+#diet-submit-button:hover {
+    background-color: #4bc274;
+}
+
+    /* Allergy List */
+#allergy-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #E4F7E9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100px;
+}
+
+#allergy-container input {
+    padding: 10px 15px;  
+    border: 2px solid #62E98B;  
+    border-radius: 30px;  
+    font-size: 14px;  
+    outline: none;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    transition: all 0.3s ease-in-out;  
+}
+
+#allergy-container input:focus {
+    border-color: #4bc274;  
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+
+#allergy-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; 
+}
+
+#allergy-list li {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #E4F7E9;
+    border-radius: 20px; 
+    margin: 0; 
+    white-space: nowrap; 
+}
+
+#add-allergy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#add-allergy-container input {
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+#add-allergy-container input:focus {
+    border-color: #62E98B;  
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+
+    /* Add Allergy Button */
+
+#add-allergy-button {
+    display: flex;
+    align-items: right;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+#add-allergy-button:hover {
+    background-color: #4bc274;
+}
+
+.bx{
+    font-size: 20px;
+}
+
+    /* Allergy Submit Button */
+#allergy-submit-button {
+    display: block;
+    margin-left: auto;
+    margin-top: 10px;
+    align-items: center;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+#allergy-submit-button:hover {
+    background-color: #4bc274;
+}
+
+    /* Remove Allergy Button */
+.remove-allergy-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; 
+    color: #62E98B; 
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    padding: 4px; 
+    font-size: 16px; 
+    width: 24px; 
+    height: 24px; 
+}
+
+.remove-allergy-button i {
+    font-size: 20px;  
+}
+
+.remove-allergy-button:hover {
+    background-color: #4bc274;  
+}
+
+/* Disliked Foods List */
+#dislike-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #E4F7E9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100px;
+}
+
+#dislike-container input {
+    padding: 10px 15px;  
+    border: 2px solid #62E98B;  
+    border-radius: 30px;  
+    font-size: 14px;  
+    outline: none;  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    transition: all 0.3s ease-in-out;  
+}
+
+#dislike-container input:focus {
+    border-color: #4bc274;  
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+
+#disliked-foods-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; 
+}
+
+#disliked-foods-list li {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #E4F7E9;
+    border-radius: 20px; 
+    margin: 0; 
+    white-space: nowrap; 
+}
+
+#add-dislike-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#add-dislike-container input {
+    padding: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+#add-dislike-container input:focus {
+    border-color: #62E98B;  
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); 
+}
+
+    /* Add Disliked Food Button */
+
+#add-dislike-button {
+    display: flex;
+    align-items: right;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+#add-dislike-button:hover {
+    background-color: #4bc274;
+}
+
+.bx{
+    font-size: 20px;
+}
+
+    /* Disliked Food Submit Button */
+#dislike-submit-button {
+    display: block;
+    margin-left: auto;
+    margin-top: 10px;
+    align-items: center;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+#dislike-submit-button:hover {
+    background-color: #4bc274;
+}
+
+    /* Remove Disliked Food Button */
+.remove-dislike-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; 
+    color: #62E98B; 
+    border: none;
+    border-radius: 50%; 
+    cursor: pointer;
+    padding: 4px; 
+    font-size: 16px; 
+    width: 24px; 
+    height: 24px; 
+}
+
+.remove-dislike-button i {
+    font-size: 20px;  
+}
+
+.remove-dislike-button:hover {
+    background-color: #4bc274;  
+}
+    
+    /* Profile Submit Button */ 
+#profile-submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+#profile-submit-button:hover {
+    background-color: #4bc274;
+}
+
+#profile-section{
+    display: none;
+}
+
+
+/* ====== Home Page Forms ====== */
+.forms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+    /* flex-wrap: wrap;  */
+}
+
+.form-box {
+    flex: 1;
+    min-width: 320px;
+    padding: 20px;
+    background-color: #F9F9F9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#meal-selection-form {
+    background-color: #E4F7E9;
+}
+
+#recipe-output {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #E4EFF7;
+}
+
+#recipe-output ul,
+#recipe-output ol {
+  text-align: left; 
+  display: inline-block; 
+  padding-left: 1.5rem; 
+}
+
+.recipe-buttons {
+    width: 100%; 
+    display: flex;
+    justify-content: flex-end; 
+    gap: 1rem;
+  }
+
+.form-box h2 {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.form-box label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.form-box select, 
+.form-box input, 
+.form-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-box button {
+    padding: 10px 15px;
+    background-color: #62E98B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.form-box button:hover {
+    background-color: #4bc274;
+}
+
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+
+    /* Meal Type Form button */
+#meal-type-submit-button {
+    align-self: flex-end;
+    margin-top: 20px;
+}
+
+    /* Recipe Output buttons */
+.recipe-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+    /* Recipe History (Cards) */
+.recipe-history-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #F9F9F9;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.recipe-history-container h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.recipe-card {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #E4F7E9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.recipe-card h4 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.recipe-card p {
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+}
+
+#saved h1{
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
