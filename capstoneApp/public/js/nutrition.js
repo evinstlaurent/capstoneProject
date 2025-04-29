@@ -51,38 +51,41 @@ async function grabAllergies() {
 }
 //Provide an array of boolean values in the same order the cheklist is ordered so that extracting is easier to parse.
 async function setPreferences(prefStrings){
+    if (!prefStrings){
+        prefStrings = "";
+    }
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         preferences: prefStrings
-    });
+    }, { merge: true });
 }
 //Give the name of the allergy you want to add
 async function addAllergy(allString) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         allergies: arrayUnion(allString)
-    });
+    }, { merge: true });
 }
 //Give the name of the allergy you want to remove
 async function removeAllergy(allString) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         allergies: arrayRemove(allString)
-    });
+    }, { merge: true });
 }
 //Just give the entire recipe as the parameter
 async function addRecipe(recipe) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         recipes: arrayUnion(recipe)
-    });
+    }, { merge: true });
 }
 //Use the text of the recipe you want to remove to delete it from the db
 async function removeRecipe(oldRecipe) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         recipes: arrayRemove(oldRecipe)
-    });
+    }, { merge: true });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
