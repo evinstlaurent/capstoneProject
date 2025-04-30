@@ -68,7 +68,7 @@ section.content
       <p>Welcome to the Capstone Nutrition App</p>
     .forms-container
       // Form 1: Meal Type Selection + Dynamic Summary of Person's diestary guidelines
-      form#meal-selection-form.form-box
+      form#meal-selection-form.form-box(method='POST' action='/')
         h2 Select Your Meal Type
         label(for='meal-type') Meal type:
         select#meal-type(name='meal-type' required='')

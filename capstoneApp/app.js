@@ -26,9 +26,9 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.listen(3000, () => {
-  console.log("App running on http://localhost:3000");
-});
+// app.listen(3000, () => {
+//   console.log("App running on http://localhost:3000");
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
