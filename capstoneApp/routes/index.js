@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dotenv = require('dotenv');
 var {OpenAI} = require('openai');
+var {grabPreferences} = require("./login")
 dotenv.config();
 
 const client = new OpenAI({
@@ -39,8 +40,6 @@ router.post('/', async function(req, res) {
   console.log(recipeSteps);
   res.render('index');
 });
-
-
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

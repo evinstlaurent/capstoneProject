@@ -15,38 +15,35 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const user = null;
 const provider = new GoogleAuthProvider();
 const db = getFirestore();
 
 // Add event listener for the Google Sign-In button
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("SignIn");
-  if (btn) {
-    btn.addEventListener("click", () => {
-      signInWithPopup(auth, provider)
-        .then(async (result) => {
-          const user = result.user;
-          console.log('User signed in:', user);
-          const docRef = doc(db, "users", user.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            window.location.href = '/';
-          } else {
-            await setDoc(doc(db, "users", user.uid), {
-              uid: user.uid,
-              allergies: null,
-              preferences: null,
-              recipes: null
-            });
-            window.location.href = '/';
-          }
-        })
+var btn = document.getElementById("SignIn");
+if (btn){
+document.getElementById("SignIn").addEventListener("click", async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    var user = result.user;
+    const idToken = await user.getIdToken();
+    // Send the token to your backend
+    const response = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify({ idToken })
     });
-  }
-  else {
-    console.warn("Buttonn not found");
+    
+    if (response.ok) {
+      alert("Login successful!");
+      window.location.href = "/";
+    } else {
+      alert("Login failed. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error during sign-in:", error);
+    alert("Sign-in error: " + error.message);
   }
 });
-
-export { user, app };
+}

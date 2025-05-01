@@ -1,18 +1,21 @@
-import { app } from "./login.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js'
 import { getFirestore, doc, getDoc, arrayUnion, arrayRemove, updateDoc} from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
 import { onAuthStateChanged, getAuth  } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
+const firebaseConfig = {
+    apiKey: "AIzaSyDeKSRfPoXJKOg-Cbp6uzvcfPPRwyFkvG4",
+    authDomain: "capstone-spring2025.firebaseapp.com",
+    projectId: "capstone-spring2025",
+    storageBucket: "capstone-spring2025.firebasestorage.app",
+    messagingSenderId: "417329932634",
+    appId: "1:417329932634:web:0d04b73f6850d6e4df2b63",
+    measurementId: "G-CXEY4F9GJQ"
+  };
+  
+const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 var currentUser = null;
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-      currentUser = user;
-      // You can store user info or update UI here
-    } else {
-      window.location.href = "/login";
-    }
-  });
-//This is a list of strings
+// This is a list of strings
 async function grabRecipes() {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
@@ -199,8 +202,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         console.log(currentUser);
-        setPreferences(selectedDiets);
-
         console.log("Dietary Preferences Saved:", selectedDiets.join(', '));
         alert("Dietary preferences updated successfully!");
     });
