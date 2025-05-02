@@ -18,7 +18,7 @@ router.post('/', async function(req, res) {
     const response = await client.chat.completions.create({
       model: 'gpt-4o',
       messages: [
-        {role: 'system', content: 'You are a helpful nutritionist generating recipes. Please output the name of the recipe, ingredients, and directions for a recipe that would fit the specifications in the request only. Do not include any leadup or explanatory text about the recipes. Ensuring allergies and dietary restrictions are adhered to is extremely important to you and the recipes.'},
+        {role: 'system', content: 'You are a helpful nutritionist generating recipes. Please output the name of the recipe, ingredients, and directions for a recipe that would fit the specifications in the request for the specific meal type only. Do not include any leadup or explanatory text about the recipes. Ensuring allergies and dietary restrictions are adhered to is extremely important to you and the recipes.'},
         {role: 'user', content: prompt }
       ],
       response_format: {type: "json_object"},
