@@ -4,11 +4,15 @@ const admin = require("firebase-admin");
 const router = express.Router();
 const db = admin.firestore();
 
-let currentUid = null;
+var {changeID, getID} = require('../public/javascripts/id');
 
 // Render login page
 router.get("/login", (req, res) => {
-  res.render("login");
+  if (getID() != null) {
+    res.redirect('/main');
+  } else {
+    res.render('login')
+  }
 });
 
 // Handle login POST
@@ -31,7 +35,7 @@ router.post("/login", async (req, res) => {
     }
 
     console.log("User logged in:", uid);
-    currentUid = uid;
+    changeID(uid);
     return res.sendStatus(200);
   } catch (error) {
     console.error("Login failed:", error);
@@ -50,8 +54,8 @@ async function grabRecipes() {
 }
 
 async function grabPreferences() {
-  if (currentUid) {
-    const docSnap = await db.doc(`users/${currentUid}`).get();
+  if (getID()) {
+    const docSnap = await db.doc(`users/${getID()}`).get();
     return docSnap.exists ? docSnap.data().preferences : null;
   }
   return null;
@@ -112,5 +116,5 @@ module.exports = {
   addAllergy,
   removeAllergy,
   addRecipe,
-  removeRecipe
+  removeRecipe,
 };

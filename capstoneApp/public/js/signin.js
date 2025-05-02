@@ -37,7 +37,7 @@ document.getElementById("SignIn").addEventListener("click", async () => {
     
     if (response.ok) {
       alert("Login successful!");
-      window.location.href = "/";
+      window.location.href = "/main";
     } else {
       alert("Login failed. Please try again.");
     }
