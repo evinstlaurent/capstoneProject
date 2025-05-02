@@ -15,6 +15,15 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 var currentUser = null;
+auth.onAuthStateChanged(function (user) {
+    if (user) {
+        // User is signed in.
+        currentUser = user;
+    } else {
+        warn("error");
+    }
+});
+
 // This is a list of strings
 async function grabRecipes() {
     const docRef = doc(db, "users", currentUser.uid);
