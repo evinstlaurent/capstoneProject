@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
-var currentUser = null;
+var currentUser = auth.currentUser;
 auth.onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
@@ -32,6 +32,17 @@ async function grabRecipes() {
         var data = docSnap.data();
         var recipes = data["recipes"];
         return recipes;
+    } else {
+        return null;
+    }
+}
+async function grabDislikes() {
+    const docRef = doc(db, "users", currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        var data = docSnap.data();
+        var dislike = data["dislikes"];
+        return dislike;
     } else {
         return null;
     }
@@ -64,7 +75,7 @@ async function grabAllergies() {
 //Provide an array of boolean values in the same order the cheklist is ordered so that extracting is easier to parse.
 async function setPreferences(prefStrings){
     if (!prefStrings){
-        prefStrings = "";
+        prefStrings = null;
     }
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
@@ -72,17 +83,16 @@ async function setPreferences(prefStrings){
     }, { merge: true });
 }
 //Give the name of the allergy you want to add
-async function addAllergy(allString) {
+async function setAllergy(allString) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
-        allergies: arrayUnion(allString)
+        allergies: allString
     }, { merge: true });
 }
-//Give the name of the allergy you want to remove
-async function removeAllergy(allString) {
+async function setDislike(strDislikes) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
-        allergies: arrayRemove(allString)
+        dislikes: strDislikes
     }, { merge: true });
 }
 //Just give the entire recipe as the parameter
@@ -211,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         console.log(currentUser);
+        setPreferences(selectedDiets);
         console.log("Dietary Preferences Saved:", selectedDiets.join(', '));
         alert("Dietary preferences updated successfully!");
     });
@@ -232,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
             newAllergyItem.appendChild(removeBtn);
             allergyList.appendChild(newAllergyItem);
-
+            
             document.getElementById("allergy-container input").value = "";
         }
     });
@@ -242,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("#allergy-list li").forEach((allergy) => {
             savedAllergies.push(allergy.textContent.replace("Remove", "").trim());
         });
-
+        setAllergy(savedAllergies);
         console.log("Allergy Entries Saved:", savedAllergies.join(', '));
         alert("Allergies updated successfully!");
     });
@@ -274,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("#disliked-foods-list li").forEach((dislike) => {
             savedDislikes.push(dislike.textContent.replace("Remove", "").trim());
         });
-
+        setDislike(savedDislikes);
         console.log("Disliked Food Entries Saved:", savedDislikes.join(', '));
         alert("Disliked Foods updated successfully!");
     });

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dotenv = require('dotenv');
 var {OpenAI} = require('openai');
-var {grabPreferences} = require("./login")
+var {grabPreferences, grabRecipes, addRecipe} = require("./login")
 var {getID} = require('../public/javascripts/id');
 dotenv.config();
 
@@ -12,14 +12,15 @@ const client = new OpenAI({
 
 router.post('/', async function(req, res) {
   let {mealSelect} = req.body;
-
+  var select = await grabRecipes();
   try {
     preferences = await grabPreferences();
   } catch(error) {
     console.log(error);
   }
+  console.log(select);
 
-  console.log(preferences);
+  // console.log(preferences);
 
   // const prompt = "Generate a recipe for "+mealSelect+". I have crohn's disease. I am allergic to nuts. I do not like eggs. Return the recipe in json using the following json output format: {recipeName: 'Recipe Name', recipeIngredients: ['ingredient1', 'ingredient2', 'ingredient3', 'ingredient4', ...], recipeSteps: ['recipeStep1', 'recipeStep2', 'recipeStep3', ...]}";
 

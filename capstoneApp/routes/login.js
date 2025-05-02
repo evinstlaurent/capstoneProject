@@ -4,7 +4,8 @@ const admin = require("firebase-admin");
 const router = express.Router();
 const db = admin.firestore();
 
-var {changeID, getID} = require('../public/javascripts/id');
+var { changeID, getID } = require('../public/javascripts/id');
+const { Steps } = require("openai/resources/beta/threads/runs/steps.mjs");
 
 // Render login page
 router.get("/login", (req, res) => {
@@ -25,13 +26,14 @@ router.post("/login", async (req, res) => {
     const userSnap = await userRef.get();
 
     if (!userSnap.exists) {
+
       await userRef.set({
         uid,
         allergies: null,
         preferences: null,
-        recipes: null,
         dislikes: null
       });
+      const recipe = db.collection("users").doc(uid).collection("recipe");
     }
 
     console.log("User logged in:", uid);
@@ -47,8 +49,15 @@ router.post("/login", async (req, res) => {
 
 async function grabRecipes() {
   if (getID()) {
-    const docSnap = await db.doc(`users/${getID()}`).get();
-    return docSnap.exists ? docSnap.data().recipes : null;
+    var totalRecipes = [];
+    const recipe = db.collection("users").doc(getID()).collection("recipe");
+    var values = await recipe.get();
+    console.log("hi");
+      values.forEach(doc => {
+        totalRecipes.push(doc.data());
+      });
+
+    return totalRecipes;
   }
   return null;
 }
@@ -112,11 +121,14 @@ async function removeAllergy(allString) {
   }
 }
 
-async function addRecipe(recipe) {
+async function addRecipe(name, ingredients, step) {
   if (getID()) {
-    await db.doc(`users/${getID()}`).update({
-      recipes: admin.firestore.FieldValue.arrayUnion(recipe)
-    });
+    const recipe = db.collection("users").doc(getID()).collection("recipe");
+    recipe.add({
+      name: name,
+      ingredients: ingredients,
+      steps: step
+    })
   }
 }
 
