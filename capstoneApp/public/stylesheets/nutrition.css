@@ -805,17 +805,19 @@ nav .nav-bar .logo a{
 }
 
 .recipe-card {
-    padding: 15px;
+    padding: 35px;
     margin-bottom: 20px;
     background-color: #E4F7E9;
     border: 1px solid #ccc;
     border-radius: 8px;
+    width: 60%;
 }
 
 .recipe-card h4 {
     text-align: center;
     font-size: 20px;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .recipe-card p {

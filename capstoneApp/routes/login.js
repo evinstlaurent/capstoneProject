@@ -5,15 +5,11 @@ const router = express.Router();
 const db = admin.firestore();
 
 var { changeID, getID } = require('../public/javascripts/id');
-const { Steps } = require("openai/resources/beta/threads/runs/steps.mjs");
+//const { Steps } = require("openai/resources/beta/threads/runs/steps.mjs");
 
 // Render login page
 router.get("/login", (req, res) => {
-  if (getID() != null) {
-    res.redirect('/main');
-  } else {
-    res.render('login')
-  }
+  res.render('login')
 });
 
 // Handle login POST

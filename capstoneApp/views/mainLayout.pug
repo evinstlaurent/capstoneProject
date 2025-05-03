@@ -1,0 +1,185 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, \
+  initial-scale=1.0')
+  meta(http-equiv='X-UA-Compatible' content='ie=edge')
+  // ====== CSS ======
+  link(rel='stylesheet' type='text/css' href='/stylesheets/nutrition.css')
+  // ====== Boxicoins CSS =======
+  link(href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet')
+  title Yumgorithm Nutrition AI
+// ====== REGISTRATION FORM ======
+//
+  <div id = "registration-section">
+  <h1>Register</h1>
+  <form id = "registration-form" class = "auth-form">
+  <label for = "reg-username">Username:</label>
+  <input type = "text" id = "reg-username" name = "username" required>
+  <label for = "reg-email">Email:</label>
+  <input type = "email" id = "reg-email" name = "email" required>
+  <label for = "reg-confirm-email">Confirm Email:</label>
+  <input type = "email" id = "reg-confirm-email" name = "confirm-email" required>
+  <label for = "reg-password">Password:</label>
+  <input type = "password" id = "reg-password" name = "password" required>
+  <label for = "reg-confirm-password">Confirm Password:</label>
+  <input type = "password" id = "reg-confirm-password" name = "confirm-password" required>
+  <button type = "submit">Register</button>
+  </form>
+  </div>
+// ====== SIGN-IN PAGE ======
+//
+  <div id = "signin-section">
+  <h1>Sign In</h1>
+  <form id = "signin-form" class = "auth-form">
+  <label for = "login-email">Email:</label>
+  <input type = "text" id = "login-email" name = "email" required>
+  <label for = "login-password">Password:</label>
+  <input type = "password" id = "login-password" name = "password" required>
+  <button type = "submit">Sign In</button>
+  </form>
+  </div>
+// ====== NAVBAR ======
+nav
+  .nav-bar
+    span.logo
+      a.tab-link(href='#' data-target='home') Yumgorithm
+    .menu
+      ul.nav-links
+        li
+          a.tab-link(href='#' data-target='home') Home
+        li
+          a.tab-link(href='#' data-target='saved') Saved
+        // Profile dropdown with icon
+        li.profile-dropdown
+          i#profile-icon.bx.bxs-user-circle
+          #profile-dropdown.dropdown-content
+            button#edit-profile-button
+              i.bx.bxs-edit
+              | Edit Profile
+            button#logout-button
+              i.bx.bxs-exit
+              | Logout
+// ====== Content Sections ======
+section.content
+  #home.tab-content
+    //
+      <h1>Home</h1>
+      <p>Welcome to the Capstone Nutrition App</p>
+    .forms-container
+      // Form 1: Meal Type Selection + Dynamic Summary of Person's diestary guidelines
+      form#meal-selection-form.form-box(method='POST' action='/main')
+        h2 Select Your Meal Type
+        label(for='mealSelect') Meal type:
+        select#meal-type(name='mealSelect' required='')
+          option(value='breakfast') Breakfast
+          option(value='lunch') Lunch
+          option(value='dinner') Dinner
+          option(value='snack') Snack
+          option(value='dessert') Dessert
+        button#meal-type-submit-button(type='submit') Submit
+    //-   // Form 2: Meal Generator (Output)
+    //-   #recipe-output.form-box
+    //-     h2 Recipe Generator
+    //-     h3 Recipe Name:
+    //-     span#recipe-name ---
+    //-     h3 Ingredients:
+    //-     ul#recipe-ingredients
+    //-       // Populated dynamically
+    //-       li ---
+    //-     h3 Steps:
+    //-     ol#recipe-steps
+    //-       // Populated dynamically
+    //-       li ---
+    //-     .recipe-buttons
+    //-       button#save-recipe Save Recipe
+    //-       button#generate-another Generate Recipe
+#saved.tab-content
+  h1  Your Saved Recipes
+  #recipe-history.recipe-history-container
+    // User History: Past Generated Recipes as Cards
+    block content
+// ====== USER PROFILE ======
+#profile.profile-page
+  h1 Your Profile
+  form#profile-form
+    // Dietary Preferences Section
+    .diet-section
+      label Dietary Preferences:
+      .diet-options
+        label
+          input(type='checkbox' name='diet' value='vegetarian')
+          | Vegetarian
+        label
+          input(type='checkbox' name='diet' value='vegan')
+          | Vegan
+        label
+          input(type='checkbox' name='diet' value='gluten-free')
+          | Gluten-Free
+        label
+          input(type='checkbox' name='diet' value='dairy-free')
+          | Dairy-Free
+        label
+          input(type='checkbox' name='diet' value='omnivore')
+          | Omnivore
+        label
+          input(type='checkbox' name='diet' value='carnivore')
+          | Carnivore
+        label
+          input(type='checkbox' name='diet' value='kosher')
+          | Kosher
+        label
+          input(type='checkbox' name='diet' value='halal')
+          | Halal
+        label
+          input(type='checkbox' name='diet' value='diabetic')
+          | Diabetic
+        label
+          input(type='checkbox' name='diet' value='pre-diabetic')
+          | Pre-Diabetic
+        label
+          input(type='checkbox' name='diet' value='low-carb')
+          | Low-Carb
+        label
+          input(type='checkbox' name='diet' value='keto')
+          | Keto
+        label
+          input(type='checkbox' name='diet' value='pescatarian')
+          | Pescatarian
+        label
+          input(type='checkbox' name='diet' value='paleo')
+          | Paleo
+        label
+          input#other-checkbox(type='checkbox' name='diet' value='other')
+          | Other
+      // Custom Diet Input (Initially Hidden)
+      #custom-diet-section.custom-diet(style='display: none;')
+        input#custom-diet-input(type='text' placeholder='Add custom preference...')
+        button#add-custom-diet-button(type='button')
+          i.bx.bx-list-plus
+          | Add Dietary Preference
+      button#diet-submit-button(type='button') Save Dietary Preferences
+    // Allergy Section
+    .allergy-section
+      label(for='allergies') Allergies:
+      #add-allergy-container
+        input(type='text' id='allergy-container input' placeholder='Add an allergy...')
+        button#add-allergy-button(type='button')
+          i.bx.bx-list-plus
+          | Add Allergy
+        ul#allergy-list
+          // Populated dynamically
+      button#allergy-submit-button(type='button') Save Allergies
+    // Disliked Foods Section
+    .dislike-section
+      label(for='dislikes') Disliked Foods:
+      #add-dislike-container
+        input(type='text' id='dislike-container input' placeholder='Add a disliked food...')
+        button#add-dislike-button(type='button')
+          i.bx.bx-list-plus
+          | Add Disliked Food
+        ul#disliked-foods-list
+          // Populated dynamically
+      button#dislike-submit-button(type='button') Save Dislikes
+// ====== JAVASCRIPT =======
+script(src='/js/nutrition.js', type='module')
