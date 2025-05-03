@@ -27,7 +27,7 @@ document.getElementById("SignIn").addEventListener("click", async () => {
     var user = result.user;
     const idToken = await user.getIdToken();
     // Send the token to your backend
-    const response = await fetch("http://localhost:3000/login", {
+    const response = await fetch("https://yumgorithm.up.railway.app/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -1,7 +1,7 @@
 var admin = require("firebase-admin");
 var dotenv = require('dotenv');
 dotenv.config();
-const {private_key } =JSON.parse(process.env.PRIVATE_KEY); 
+const {private_key} =JSON.parse(process.env.PRIVATE_KEY); 
 const serviceAccount = {
   type: process.env.TYPE,
   project_id: process.env.PROJECT_ID,
