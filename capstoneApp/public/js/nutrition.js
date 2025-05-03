@@ -19,23 +19,11 @@ auth.onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
         currentUser = user;
+        populateAllLists();
     } else {
         warn("error");
     }
 });
-
-// This is a list of strings
-async function grabRecipes() {
-    const docRef = doc(db, "users", currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-        var data = docSnap.data();
-        var recipes = data["recipes"];
-        return recipes;
-    } else {
-        return null;
-    }
-}
 async function grabDislikes() {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
@@ -47,7 +35,6 @@ async function grabDislikes() {
         return null;
     }
 }
-//Given that it is a checklist, this is going to be a list of booleans
 async function grabPreferences() {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
@@ -60,7 +47,6 @@ async function grabPreferences() {
     }
 }
 
-//this returns all the available allergies in a string form
 async function grabAllergies() {
     const docRef = doc(db, "users", currentUser.uid);
     const docSnap = await getDoc(docRef);
@@ -72,17 +58,13 @@ async function grabAllergies() {
         return null;
     }
 }
-//Provide an array of boolean values in the same order the cheklist is ordered so that extracting is easier to parse.
+
 async function setPreferences(prefStrings){
-    if (!prefStrings){
-        prefStrings = null;
-    }
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
         preferences: prefStrings
     }, { merge: true });
 }
-//Give the name of the allergy you want to add
 async function setAllergy(allString) {
     const userRef = doc(db, "users", currentUser.uid);
     await updateDoc(userRef, {
@@ -95,19 +77,41 @@ async function setDislike(strDislikes) {
         dislikes: strDislikes
     }, { merge: true });
 }
-//Just give the entire recipe as the parameter
-async function addRecipe(recipe) {
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(userRef, {
-        recipes: arrayUnion(recipe)
-    }, { merge: true });
+async function populateAllLists() {
+
+    const dislikes = await grabDislikes();
+    if (dislikes) populateRemovableList("disliked-foods-list", dislikes);
+
+    const preferences = await grabPreferences();
+    if (preferences) populatePreferences(preferences);
+
+    const allergies = await grabAllergies();
+    if (allergies) populateRemovableList("allergy-list", allergies);
 }
-//Use the text of the recipe you want to remove to delete it from the db
-async function removeRecipe(oldRecipe) {
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(userRef, {
-        recipes: arrayRemove(oldRecipe)
-    }, { merge: true });
+function populateRemovableList(listId, items) {
+    const ul = document.getElementById(listId);
+    if (!ul) return;
+
+    ul.innerHTML = "";
+
+    items.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.innerHTML = '<i class="bx bxs-x-circle"></i>';
+        removeBtn.classList.add("remove-dislike-button");;
+        removeBtn.addEventListener("click", () => { li.remove(); });
+
+        li.appendChild(removeBtn);
+        ul.appendChild(li);
+    });
+}
+function populatePreferences(preferenceArray) {
+    const checkboxes = document.querySelectorAll('.diet-options input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = preferenceArray.includes(checkbox.value);
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -220,8 +224,14 @@ document.addEventListener("DOMContentLoaded", () => {
             selectedDiets.push(customDietInput);
         }
         
-        console.log(currentUser);
-        setPreferences(selectedDiets);
+        
+        if (selectedDiets.length>0){
+            console.log(currentUser);
+            setPreferences(selectedDiets);
+        }
+        else {
+            setPreferences(null);
+        }
         console.log("Dietary Preferences Saved:", selectedDiets.join(', '));
         alert("Dietary preferences updated successfully!");
     });
@@ -253,7 +263,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("#allergy-list li").forEach((allergy) => {
             savedAllergies.push(allergy.textContent.replace("Remove", "").trim());
         });
-        setAllergy(savedAllergies);
+        if (savedAllergies.length>0){
+            setAllergy(savedAllergies);
+        }
+        else{
+            setAllergy(null);
+        }
         console.log("Allergy Entries Saved:", savedAllergies.join(', '));
         alert("Allergies updated successfully!");
     });
@@ -285,7 +300,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("#disliked-foods-list li").forEach((dislike) => {
             savedDislikes.push(dislike.textContent.replace("Remove", "").trim());
         });
-        setDislike(savedDislikes);
+        if (savedDislikes.length>0){
+            setDislike(savedDislikes);
+        }
+        else {
+            setDislike(null);
+        }
         console.log("Disliked Food Entries Saved:", savedDislikes.join(', '));
         alert("Disliked Foods updated successfully!");
     });

@@ -40,19 +40,16 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ error: "Invalid token" });
   }
 });
-
-// Functions using admin.firestore()
-
+// If you dont want to worry about the time added just remove the orderBy from this function.
 async function grabRecipes() {
   if (getID()) {
     var totalRecipes = [];
-    const recipe = db.collection("users").doc(getID()).collection("recipe");
+    const recipe = db.collection("users").doc(getID()).collection("recipe").orderBy("timeAdded", "desc");
     var values = await recipe.get();
     console.log("hi");
       values.forEach(doc => {
         totalRecipes.push(doc.data());
       });
-
     return totalRecipes;
   }
   return null;
@@ -80,42 +77,6 @@ async function grabDislikes() {
   }
   return null;
 }
-async function setPreferences(prefStrings) {
-  if (getID()) {
-    await db.doc(`users/${getID()}`).set({ preferences: prefStrings }, { merge: true });
-  }
-}
-
-async function addDislikes(newDislike) {
-  if (getID()) {
-    await db.doc(`users/${getID()}`).update({
-      allergies: admin.firestore.FieldValue.arrayUnion(allString)
-    });
-  }
-}
-async function removeDislike(newDislike) {
-  if (getID()) {
-    await db.doc(`users/${getID()}`).update({
-      allergies: admin.firestore.FieldValue.arrayRemove(allString)
-    });
-  }
-}
-
-async function addAllergy(allString) {
-  if (getID()) {
-    await db.doc(`users/${getID()}`).update({
-      allergies: admin.firestore.FieldValue.arrayUnion(allString)
-    });
-  }
-}
-
-async function removeAllergy(allString) {
-  if (getID()) {
-    await db.doc(`users/${getID()}`).update({
-      allergies: admin.firestore.FieldValue.arrayRemove(allString)
-    });
-  }
-}
 
 async function addRecipe(name, ingredients, step) {
   if (getID()) {
@@ -123,7 +84,8 @@ async function addRecipe(name, ingredients, step) {
     recipe.add({
       name: name,
       ingredients: ingredients,
-      steps: step
+      steps: step,
+      timeAdded: admin.firestore.Timestamp.now()
     })
   }
 }

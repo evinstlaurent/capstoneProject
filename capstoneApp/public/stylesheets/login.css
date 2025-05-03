@@ -1,0 +1,58 @@
+/* ====== Google Font Import ====== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ====== Root Colors ====== */
+:root {
+  --primary-color: #62E98B;
+  --background-color: #E4E9F7;
+  --text-color: #010718;
+}
+
+/* ====== Page Layout ====== */
+body {
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ====== Login Box ====== */
+.login-box {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-box h1 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+/* ====== Sign-In Button ====== */
+#SignIn {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#SignIn:hover {
+  background-color: #4bc274;
+}
